@@ -1,7 +1,7 @@
 {
     "formulas": [
         {
-            "propertyTitle": "Timing"
+            "propertyTitle": "Timing",
             "description": "Provides a color-coded and concise description of how early or late a task is scheduled.",
             "raw": "if(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")) == 0,\"🟡  Just in time\",if(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")) > 0,concat(\"🟢  \", format(abs(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")))), \" \", if(abs(prop(\"do to due\")) <= 1, \"day\", \"days\"), \" early\"),concat(\"🔴  \", format(abs(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")))), \" \", if(abs(prop(\"do to due\")) <= 1, \"day\", \"days\"), \" late\")))",
             "indentedLines": "if(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")) == 0,\n\"\t🟡  Just in time\",\n\tif(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")) > 0,\n\t\tconcat(\"🟢  \", format(abs(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")))), \" \", if(abs(prop(\"do to due\")) <= 1, \"day\", \"days\"), \" early\"),\n\t\tconcat(\"🔴  \", format(abs(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")))), \" \", if(abs(prop(\"do to due\")) <= 1, \"day\", \"days\"), \" late\")))"
