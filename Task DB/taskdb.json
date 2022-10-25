@@ -1,16 +1,28 @@
 {
     "formulas": [
         {
-            "propertyTitle": "Timing",
-            "description": "Provides a color-coded and concise description of how early or late a task is scheduled.",
-            "raw": "if(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")) == 0,\"🟡  Just in time\",if(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")) > 0,concat(\"🟢  \", format(abs(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")))), \" \", if(abs(prop(\"do to due\")) <= 1, \"day\", \"days\"), \" early\"),concat(\"🔴  \", format(abs(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")))), \" \", if(abs(prop(\"do to due\")) <= 1, \"day\", \"days\"), \" late\")))",
-            "indentedLines": "if(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")) == 0,\n\"\t🟡  Just in time\",\n\tif(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")) > 0,\n\t\tconcat(\"🟢  \", format(abs(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")))), \" \", if(abs(prop(\"do to due\")) <= 1, \"day\", \"days\"), \" early\"),\n\t\tconcat(\"🔴  \", format(abs(toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\")))), \" \", if(abs(prop(\"do to due\")) <= 1, \"day\", \"days\"), \" late\")))"
+            "propertyTitle":"emoji Timing",
+            "description":"Returns the emoji to represent either late, on-time, or early tasks",
+            "raw":"if(or(prop(\"num Timing\") == 0, prop(\"num Timing\") == 1), \"🟡  \", if(prop(\"num Timing\") > 0, \"🔴  \", \"🟢  \"))",
+            "indentedLines":"if(or(prop(\"num Timing\") == 0, prop(\"num Timing\") == 1),\n\t\"🟡  \",\n\tif(prop(\"num Timing\") > 0,\n\t\t\"🔴  \",\n\t\t\"🟢  \"))"
+        },
+        {
+            "propertyTitle":"text Timing",
+            "description":"Returns the text representation of late, on-time, or early tasks",
+            "raw":"if(prop(\"num Timing\") == 0, \"Just in time\", if(prop(\"num Timing\") == 1, \"1 day early\", if(prop(\"num Timing\") == -1, \"1 day late\", if(prop(\"num Timing\") > 0, concat(format(prop(\"num Timing\")) ,\" days late\"), concat(format(-prop(\"num Timing\")) ,\" days early\")))))",
+            "indentedLines":"if(prop(\"num Timing\") == 0,\n\t\"Just in time\",\n\tif(prop(\"num Timing\") == 1,\n\t\t\"1 day early\",\n\t\tif(prop(\"num Timing\") == -1,\n\t\t\t\"1 day late\",\n\t\t\tif(prop(\"num Timing\") > 0,\n\t\t\t\tconcat(format(prop(\"num Timing\")) ,\" days late\"),\n\t\t\t\tconcat(format(-prop(\"num Timing\")) ,\" days early\")))))"
         },
         {
             "propertyTitle": "num Timing",
             "description": "Provides a numeric representation of the difference between due date and \"do\" date.",
             "raw": "-toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\"))",
             "indentedLines": "-toNumber(dateBetween(prop(\"Due\"), prop(\"Do\"), \"days\"))"
+        },
+        {
+            "propertyTitle": "Timing",
+            "description": "Provides a color-coded and concise description of how early or late a task is scheduled.",
+            "raw": "concat(prop(\"emoji Timing\"), prop(\"text Timing\"))",
+            "indentedLines": "concat(prop(\"emoji Timing\"), prop(\"text Timing\"))"
         }
     ]
 }
