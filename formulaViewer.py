@@ -1,30 +1,48 @@
 import json
 import os
+from tkinter import getint
 
+# main function
+def main():
+    folders = findFolders()
+    listFolders(folders)
+    selection = getIntInput("Select folder: ")
+    moveToSubfolder(folders[selection])
+
+# Find folders
+def findFolders():
+    folders = os.listdir()
+    # Remove files that are on the "filesToIgnore" list
+    for file in filesToIgnore:
+        try:
+            folders.remove(file)
+        except ValueError:
+            pass
+    return folders
 # Files in the project directly that should be ignored when looking for code
 filesToIgnore = [".DS_Store", ".gitignore", ".git", "formulaViewer.py"]
 
-# Find folders
-folders = os.listdir()
-# Remove files that are on the "filesToIgnore" list
-for file in filesToIgnore:
-    try:
-        folders.remove(file)
-    except ValueError:
-        pass
-
+# List folders
 # List folder options to the user
-i = 0
-for folder in folders:
-    print(str(i).zfill(2) + " " + folder)
-    i += 1
+def listFolders(folders):
+    i = 0
+    for folder in folders:
+        print(str(i).zfill(2) + " " + folder)
+        i += 1
 
-# Get selection from the user
-selection = int(input("Select folder: "))
+# Get int selection from the user
+def getIntInput(prompt, prompt2 = "Try again "):
+    selection = input(prompt)
+    try:
+        return = int(selection)
+    except ValueError:
+        return getIntInput(prompt2, prompt2)
 
-# Move to the directly
-os.chdir(os.getcwd() + "/" + folders[selection])
-dir = os.getcwd()
+# Move to subfolder
+# Returns cwd (current working directory) after the switch
+def moveToSubfolder(folderName):
+    os.chdir(os.getcwd() + "/" + folderName)
+    return os.getcwd()
 
 # Find the json files
 files = os.listdir()
@@ -64,3 +82,5 @@ print(formula.get("propertyTitle"))
 print(formula.get("description"))
 print("\n" + formula.get("indentedLines"))
 print("\n" + formula.get("raw"))
+
+main()
